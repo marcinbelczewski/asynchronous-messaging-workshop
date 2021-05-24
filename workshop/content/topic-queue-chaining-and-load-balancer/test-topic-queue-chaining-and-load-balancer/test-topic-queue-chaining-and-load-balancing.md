@@ -13,7 +13,7 @@ To look-up the API Gateway endpoint URL for the submit-ride-completion function,
 
 ```bash
 aws cloudformation describe-stacks \
-    --stack-name wild-rydes-async-msg-2 \
+    --stack-name %INITIALS%-wild-rydes-async-msg-2 \
     --query 'Stacks[].Outputs[?OutputKey==`UnicornManagementServiceApiSubmitRideCompletionEndpoint`].OutputValue' \
     --output text
 ```
@@ -25,7 +25,7 @@ Let's store this API Gateway endpoint URL in an environment variable, so we don'
 
 ```bash
 export ENDPOINT=$(aws cloudformation describe-stacks \
-    --stack-name wild-rydes-async-msg-2 \
+    --stack-name %INITIALS%-wild-rydes-async-msg-2 \
     --query 'Stacks[].Outputs[?OutputKey==`UnicornManagementServiceApiSubmitRideCompletionEndpoint`].OutputValue' \
     --output text)
 ```
@@ -43,7 +43,7 @@ curl -XPOST -i -H "Content-Type:application/json" -d '{ "from": "Berlin", "to": 
 
 #### 3. Validate the message reception
 
-Go to your [Amazon CloudWatch Log console](https://console.aws.amazon.com/cloudwatch/home?#logs:prefix=/aws/lambda/wild-rydes-async-msg-2) and lookup all **Log Groups** with the prefix `/aws/lambda/wild-rydes-async-msg-2`.
+Go to your [Amazon CloudWatch Log console](https://console.aws.amazon.com/cloudwatch/home?#logs:prefix=/aws/lambda/wild-rydes-async-msg-2) and lookup all **Log Groups** with the prefix `/aws/lambda/%INITIALS%-wild-rydes-async-msg-2` (assuming your have chosen `%INITIALS%-wild-rydes-async-msg-2` as your stack name).
 
 {{%expand "Detailed description" %}}
 ![Step 2](step-2.png)

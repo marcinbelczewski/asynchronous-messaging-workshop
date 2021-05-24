@@ -12,7 +12,8 @@ In your **[Amazon SQS console](https://console.aws.amazon.com/sqs/home?)**, sele
 ![Step 1](step-1-console.png)
 {{% /expand%}}
 
-Enter `ExtraordinaryRidesServiceQueue` as **Queue Name**, make sure **Standard Queue** is highlighted and click **Quick-Create Queue**.
+Enter `%INITIALS%-ExtraordinaryRidesServiceQueue` as **Queue Name**, make sure **Standard Queue** is highlighted and the queue name is prefixed with your initials. Click **Create Queue**.
+
 
 {{%expand "Detailed description" %}}
 ![Step 2](step-2-console.png)
@@ -20,13 +21,13 @@ Enter `ExtraordinaryRidesServiceQueue` as **Queue Name**, make sure **Standard Q
 
 #### 2. Create a new subscription
 
-After selecting the queue **ExtraordinaryRidesServiceQueue**, click the **Queue Actions** drop down in the top left corner and chose **Subscribe Queue to SNS Topic**.
+After creating `%INITIALS%-ExtraordinaryRidesServiceQueue`, click the **Subscribe to Amazon SNS topic** button.
 
 {{%expand "Detailed description" %}}
 ![Step 3](step-3-console.png)
 {{% /expand%}}
 
-In the pop up window, select the **RideCompletionTopic** and click **Subscribe**. Click **Ok** in the confirmation dialog.
+From the drop down, select the `%INITIALS%-RideCompletionTopic` ARN and click **Save**.
 
 {{%expand "Detailed description" %}}
 ![Step 4](step-4-console.png)
@@ -34,7 +35,7 @@ In the pop up window, select the **RideCompletionTopic** and click **Subscribe**
 
 #### 3. Validate the subscription confirmation
 
-Browse to your **[Amazon SNS console](https://console.aws.amazon.com/sns/v3/home?#/topics)** to list your existing topics. Select the **RideCompletionTopic** and verify, the subscription has the status **Confirmed**.
+Browse to your **[Amazon SNS console](https://console.aws.amazon.com/sns/v3/home?#/topics)** to list your existing topics. Select the `%INITIALS%-RideCompletionTopic` and verify, the subscription has the status **Confirmed**.
 
 {{%expand "Detailed description" %}}
 ![Step 5](step-5-console.png)
@@ -42,7 +43,7 @@ Browse to your **[Amazon SNS console](https://console.aws.amazon.com/sns/v3/home
 
 #### 4. Add the filter to the subscription
 
-Click on the subscription id for the **ExtraordinaryRidesServiceQueue subscription** and click on **Edit** to add our subscription filter policy. In the subscription filter policy section, add out filter policy. Click **Save changes**.
+Click on the subscription id for the `%INITIALS%-ExtraordinaryRidesServiceQueue subscription` and click on **Edit** to add our subscription filter policy. In the subscription filter policy section, add out filter policy. Click **Save changes**.
 
 {{%expand "cheat sheet" %}}
 ```
@@ -59,7 +60,7 @@ Click on the subscription id for the **ExtraordinaryRidesServiceQueue subscripti
 
 #### 5. Grant permissions to our function to access the Amazon SQS queue
 
-In your **[Amazon IAM console](https://console.aws.amazon.com/iam)**, select **Roles** in the left navigation. Use the filter text box to find the role with the name **wild-rydes-async-msg-2-ExtraordinaryRidesService-...** (assuming your have chosen `wild-rydes-async-msg-2` as your stack name).  
+In your **[Amazon IAM console](https://console.aws.amazon.com/iam)**, select **Roles** in the left navigation. Use the filter text box to find the role with the name `%INITIALS%-wild-rydes-async-msg-2-ExtraordinaryRidesService-...` (assuming your have chosen `%INITIALS%-wild-rydes-async-msg-2` as your stack name).
 
 {{%expand "Detailed description" %}}
 ![Step 7](step-7-console.png)
@@ -71,7 +72,7 @@ Click on the role name and click **Add inline policy** to attache another one.
 ![Step 8](step-8-console.png)
 {{% /expand%}}
 
-Select the **JSON** tab and passed the following policy statement into it, after you have substitute <<...>> with the correct values. It will add the permission to your Lambda function to access the Amazon SQS queue:
+Select the **JSON** tab and passed the following policy statement into it, after you have substitute <<...>> and %INITIALS% with the correct values. It will add the permission to your Lambda function to access the Amazon SQS queue:
 
 {{%expand "policy" %}}
 ```bash
@@ -87,7 +88,7 @@ Select the **JSON** tab and passed the following policy statement into it, after
                 "sqs:GetQueueAttributes",
                 "sqs:ReceiveMessage"
             ],
-            "Resource": "arn:aws:sqs:<<AWS REGION>>:<<AWS ACCOUNT ID>>:ExtraordinaryRidesServiceQueue"
+            "Resource": "arn:aws:sqs:<<AWS REGION>>:<<AWS ACCOUNT ID>>:%INITIALS%-ExtraordinaryRidesServiceQueue"
         }
     ]
 }
@@ -107,13 +108,13 @@ Click **Review policy** and enter the **Name** `ExtraordinaryRidesServiceRolePol
 
 #### 6. Add the Amazon SQS queue as event source for your Customer Notification Service AWS Lambda function
 
-Open your **[AWS Lambda console](https://console.aws.amazon.com/lambda/home?#/functions)** and select **Functions** in the left navigation. Click on the function with the name **wild-rydes-async-msg-2-ExtraordinaryRides...** (assuming your have chosen `wild-rydes-async-msg-2` as your stack name). Click on the **+ Add Trigger** button on the left side of the page:
+Open your **[AWS Lambda console](https://console.aws.amazon.com/lambda/home?#/functions)** and select **Functions** in the left navigation. Click on the function with the name `%INITIALS%-wild-rydes-async-msg-2-ExtraordinaryRides...` (assuming your have chosen `%INITIALS%-wild-rydes-async-msg-2` as your stack name). Click on the **+ Add Trigger** button on the left side of the page:
 
 {{%expand "Detailed description" %}}
 ![Step 10](step-10-console.png)
 {{% /expand%}}
 
-On the following page, select `SQS` as the event source for this AWS Lambda function. For the **SQS queue**, select the `ExtraordinaryRidesServiceQueue` and set the **batch size** to `1`. Don't forget to **enable the trigger**, before you click the **Add** button in the lower right corner.
+On the following page, select `SQS` as the event source for this AWS Lambda function. For the **SQS queue**, select the `%INITIALS%-ExtraordinaryRidesServiceQueue` and set the **batch size** to `1`. Don't forget to **enable the trigger**, before you click the **Add** button in the lower right corner.
 
 {{%expand "Detailed description" %}}
 ![Step 11](step-11-console.png)

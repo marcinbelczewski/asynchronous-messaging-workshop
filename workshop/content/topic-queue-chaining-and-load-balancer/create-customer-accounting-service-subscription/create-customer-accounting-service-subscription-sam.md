@@ -95,7 +95,7 @@ sam build
 {{< highlight bash >}}
 sam deploy \
     --guided \
-    --stack-name wild-rydes-async-msg-2 \
+    --stack-name %INITIALS-wild-rydes-async-msg-2 \
     --capabilities CAPABILITY_IAM
 {{< /highlight >}}
 

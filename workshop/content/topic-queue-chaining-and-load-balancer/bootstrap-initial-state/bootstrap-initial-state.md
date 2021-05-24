@@ -11,7 +11,7 @@ First, we will setup the initial state, including the integrating of the **Unico
 
 #### 1. Browse to your AWS Cloud9 IDE
 
-Browse to your [AWS Cloud9 Console](https://console.aws.amazon.com/cloud9/home) and select the environment called **WildRydesAsyncMessaging**.
+Browse to your [AWS Cloud9 Console](https://console.aws.amazon.com/cloud9/home) and select the environment called `%INITIALS%-wildrydes-webapp-development`.
 
 {{%expand "Detailed description" %}}
 ![Step 2](step-2.png)
@@ -33,22 +33,26 @@ sam build
 
 #### 3. Deploy the application
 
-Now we are ready to deploy the application, by running the following command in the **lab-2** directory:  
+Now we are ready to deploy the application, by running the following command in the **lab-2** directory. **Prefix stack name with your initials to avoid clashes with other participants!:**  
 
 {{< highlight bash >}}
 export AWS_REGION=$(aws --profile default configure get region)
 sam deploy \
-    --stack-name wild-rydes-async-msg-2 \
+    --stack-name %INITIALS%-wild-rydes-async-msg-2 \
     --capabilities CAPABILITY_IAM \
-    --region $AWS_REGION \
+    --region us-east-1 \
     --guided
 {{< /highlight >}}
 
-Confirm the first 4 proposed arguments by hitting **ENTER**. When you get asked **SubmitRideCompletionFunction may not have authorization defined, Is this okay? [y/N]:**, enter `y` and hit **ENTER** again 2 times.  
+- Confirm the first 2 proposed arguments by hitting **ENTER**.
+- **Provide your initials as unique prefix for 3rd option *Parameter UserPrefix* and hit** **ENTER**.
+- Confirm the next 2 proposed arguments by hitting **ENTER**.
+- When you get asked **SubmitRideCompletionFunction may not have authorization defined, Is this okay? [y/N]:**, enter `y`.
+- Confirm remaining proposed arguments by hitting **ENTER**.
 
 #### 4. Wait until the stack is successfully deployed
 
-It takes usually 4 minutes until the stack launched. You can monitor the progress of the **wild-rydes-async-msg-2** stack in your SAM CLI or your [AWS CloudFormation Console](https://console.aws.amazon.com/cloudformation). When the stack is launched, the status will change from **CREATE_IN_PROGRESS** to **CREATE_COMPLETE**.
+It takes usually 4 minutes until the stack launched. You can monitor the progress of the **%INITIALS%-wild-rydes-async-msg-2** stack in your SAM CLI or your [AWS CloudFormation Console](https://console.aws.amazon.com/cloudformation). When the stack is launched, the status will change from **CREATE_IN_PROGRESS** to **CREATE_COMPLETE**.
 
 {{%expand "Detailed description" %}}
 ![Step 7](step-7.png)
