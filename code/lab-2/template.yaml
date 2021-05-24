@@ -1,8 +1,8 @@
-AWSTemplateFormatVersion: '2010-09-09'
+AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 Description: >
   Wild Rydes Asynchronous Messaging Workshop - Lab 2
-  
+
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
@@ -54,15 +54,15 @@ Resources:
       Environment:
         Variables:
           SERVICE_NAME: CustomerAccountingService
-    #   Policies:
-    #     - SQSPollerPolicy: # https://github.com/awslabs/serverless-application-model/blob/develop/samtranslator/policy_templates_data/policy_templates.json
-    #         QueueName: !Ref CustomerAccountingServiceQueue
-    # Events:
-    #    CustomerAccountingServiceJobQueue:
-    #      Type: SQS
-    #      Properties:
-    #        Queue: !GetAtt CustomerAccountingServiceQueue.Arn
-    #        BatchSize: 1
+      # Policies:
+      #   - SQSPollerPolicy: # https://github.com/awslabs/serverless-application-model/blob/develop/samtranslator/policy_templates_data/policy_templates.json
+      #       QueueName: !Ref CustomerAccountingServiceQueue
+      # Events:
+      #   CustomerAccountingServiceJobQueue:
+      #     Type: SQS
+      #     Properties:
+      #       Queue: !GetAtt CustomerAccountingServiceQueue.Arn
+      #       BatchSize: 1
 
   CustomerNotificationService:
     Type: AWS::Serverless::Function
@@ -125,7 +125,7 @@ Resources:
   #     Properties:
   #       Endpoint: !GetAtt CustomerAccountingServiceQueue.Arn
   #       Protocol: sqs
-  #       RawMessageDelivery: true
+  #       RawMessageDelivery: false
   #       TopicArn: !Ref RideCompletionTopic
 
   # CustomerNotificationServiceQueue:
@@ -151,7 +151,7 @@ Resources:
   #     Properties:
   #       Endpoint: !GetAtt CustomerNotificationServiceQueue.Arn
   #       Protocol: sqs
-  #       RawMessageDelivery: true
+  #       RawMessageDelivery: false
   #       TopicArn: !Ref RideCompletionTopic
 
   # ExtraordinaryRidesServiceQueue:
@@ -177,7 +177,7 @@ Resources:
   #     Properties:
   #       Endpoint: !GetAtt ExtraordinaryRidesServiceQueue.Arn
   #       Protocol: sqs
-  #       RawMessageDelivery: true
+  #       RawMessageDelivery: false
   #       TopicArn: !Ref RideCompletionTopic
   #       FilterPolicy: { "fare": [{"numeric": [">=", 50]}], "distance": [{"numeric": [">=", 20]}] }
 
@@ -204,11 +204,9 @@ Outputs:
   ExtraordinaryRidesService:
     Description: "ExtraordinaryRidesService Lambda Function ARN"
     Value: !GetAtt ExtraordinaryRidesService.Arn
-
   RidesTable:
     Description: "Rides table id"
     Value: !Ref RidesTable
-
   # CustomerAccountingServiceQueue:
   #   Description: "Amazon SQS queue ARN for the CustomerAccounting service queue"
   #   Value: !Ref CustomerAccountingServiceQueue

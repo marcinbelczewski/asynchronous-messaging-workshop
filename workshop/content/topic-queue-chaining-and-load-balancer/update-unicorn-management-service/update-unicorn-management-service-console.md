@@ -7,7 +7,7 @@ hidden = true
 
 #### 1. Grant additional IAM permissions to Lambda
 
-In your **[Amazon IAM console](https://console.aws.amazon.com/iam)**, select **Roles** in the left navigation. Use the filter text box to find the role with the name **wild-rydes-async-msg-2-SubmitRideCompletionFunctio-...** (assuming your have chosen `wild-rydes-async-msg-2` as your stack name).  
+In your **[Amazon IAM console](https://console.aws.amazon.com/iam)**, select **Roles** in the left navigation. Use the filter text box to find the role with the name `%INITIALS%-wild-rydes-async-msg-2-SubmitRideCompletionFunctio-...` (assuming your have chosen ``%INITIALS%-wild-rydes-async-msg-2` as your stack name).  
 
 {{%expand "Detailed description" %}}
 ![Step 1](step-1-console.png)
@@ -50,7 +50,7 @@ Click **Review policy** and enter the **Name** `SubmitRideCompletionFunctionRole
 
 #### 2. Provide the Amazon SNS topic ARN to Lambda
 
-In your **[AWS Lambda console](https://console.aws.amazon.com/lambda/home?#/functions)**, select **Functions** in the left navigation. Use the filter text box to find the function with the name **wild-rydes-async-msg-2-SubmitRideCompletionFunctio-...** (assuming your have chosen `wild-rydes-async-msg-2` as your stack name).  
+In your **[AWS Lambda console](https://console.aws.amazon.com/lambda/home?#/functions)**, select **Functions** in the left navigation. Use the filter text box to find the function with the name `%INITIALS%-wild-rydes-async-msg-2-SubmitRideCompletionFunctio-...` (assuming your have chosen `%INITIALS%-wild-rydes-async-msg-2` as your stack name).  
 
 {{%expand "Detailed description" %}}
 ![Step 4](step-4-console.png)
@@ -65,7 +65,7 @@ Click on the function name and scroll down to the section **Environment variable
 
 #### 3. Update your Lambda function to call Amazon SNS
 
-Open your **[AWS Lambda console](https://console.aws.amazon.com/lambda/home?#/functions)** and select **Functions** in the left navigation. Select the function with the name **wild-rydes-async-msg-2-SubmitRideCompletionFunctio-...** (assuming your have chosen `wild-rydes-async-msg-2` as your stack name). Scroll a bit down to the section **Function code**. Add the definition of the sns client directly after the dynamodb client:  
+Open your **[AWS Lambda console](https://console.aws.amazon.com/lambda/home?#/functions)** and select **Functions** in the left navigation. Select the function with the name `%INITIALS%-wild-rydes-async-msg-2-SubmitRideCompletionFunctio-...` (assuming your have chosen `%INITIALS%-wild-rydes-async-msg-2` as your stack name). Scroll a bit down to the section **Function code**. Add the definition of the sns client directly after the dynamodb client:  
 
 {{%expand "Cheat Sheet" %}}
 ```Python
@@ -97,21 +97,3 @@ After the put item DynamoDB statement and before we are sending the response bac
 {{%expand "Detailed description" %}}
 ![Step 6](step-6-console.png)
 {{% /expand%}}
-
-{{% notice tip %}}
-**Using AWS Lambda Layers**  
-If you are wondering why the uploaded AWS Lambda function archive is less then 1 kB, but it requires boto3 to run, here comes the answer. We are using a custom AWS Lambda layer with Python 3.6 and boto3 1.9.248. To create this layer, we only run the script below in our 'lambda-layers' sub-folder. In our AWS SAM template, we make use of this zip file to create the layer. Stay curious and have a look into the file 'wild-rydes-async-messaging/lab-1/template.yaml'.
-```bash
-pipenv --python 3.6
-pipenv shell
-pipenv install boto3
-PY_DIR='build/python/lib/python3.6/site-packages'
-mkdir -p $PY_DIR
-pipenv lock -r > requirements.txt
-pip install -r requirements.txt --no-deps -t $PY_DIR
-cd build
-zip -r ../python_layer_with_boto3.zip .
-cd ..
-rm -r build
-```
-{{% /notice %}}

@@ -98,7 +98,7 @@ Now we are ready to update the application, by running the following command to 
 {{< highlight bash >}}
 sam deploy \
     --guided \
-    --stack-name wild-rydes-async-msg-2 \
+    --stack-name %INITIALS-wild-rydes-async-msg-2 \
     --capabilities CAPABILITY_IAM
 {{< /highlight >}}
 
