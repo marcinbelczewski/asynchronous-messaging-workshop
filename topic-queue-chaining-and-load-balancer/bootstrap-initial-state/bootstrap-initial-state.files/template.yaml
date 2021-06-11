@@ -120,7 +120,7 @@ Resources:
   #     Properties:
   #       Endpoint: !GetAtt CustomerAccountingServiceQueue.Arn
   #       Protocol: sqs
-  #       RawMessageDelivery: true
+  #       RawMessageDelivery: false
   #       TopicArn: !Ref RideCompletionTopic
 
   # CustomerNotificationServiceQueue:
@@ -146,7 +146,7 @@ Resources:
   #     Properties:
   #       Endpoint: !GetAtt CustomerNotificationServiceQueue.Arn
   #       Protocol: sqs
-  #       RawMessageDelivery: true
+  #       RawMessageDelivery: false
   #       TopicArn: !Ref RideCompletionTopic
 
   # ExtraordinaryRidesServiceQueue:
@@ -172,7 +172,7 @@ Resources:
   #     Properties:
   #       Endpoint: !GetAtt ExtraordinaryRidesServiceQueue.Arn
   #       Protocol: sqs
-  #       RawMessageDelivery: true
+  #       RawMessageDelivery: false
   #       TopicArn: !Ref RideCompletionTopic
   #       FilterPolicy: { "fare": [{"numeric": [">=", 50]}], "distance": [{"numeric": [">=", 20]}] }
 
